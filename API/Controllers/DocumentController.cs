@@ -16,6 +16,12 @@ namespace SenderDocumentSync.Controllers
     public class DocumentController : ApiController
     {
         readonly SendDocumentToOnBase _sender = new SendDocumentToOnBase();
+        private OnBaseReleaser _releaser;
+
+        public DocumentController(OnBaseReleaser releaser)
+        {
+            _releaser = releaser;
+        }
 
         /// <summary>
         /// Send Document from prodoctivity to OnBase
@@ -26,7 +32,7 @@ namespace SenderDocumentSync.Controllers
         [System.Web.Http.HttpPost]
         public IHttpActionResult SendDocumentToOnBase(long handler)
         {
-            var newHandler = _sender.SaveDocument(handler, new OnBaseReleaser());
+            var newHandler = _sender.SaveDocument(handler, _releaser);
             ValidateResult(newHandler);
             return Ok(new
             {

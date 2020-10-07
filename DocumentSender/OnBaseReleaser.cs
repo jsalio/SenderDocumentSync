@@ -26,6 +26,7 @@ namespace DocumentSender
             ValidateSettings();
             credentials = new OnBaseCredentials(_url, _odbc, _username, _password);
             manager = new IntegrationManager(credentials, LicenseConnectionType.NamedLicense, true);
+            Console.WriteLine("Connected with OnBase");
         }
 
         private void ValidateSettings()

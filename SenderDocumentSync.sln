@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenderDocumentSync", "API\S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentSender", "DocumentSender\DocumentSender.csproj", "{669A12F9-77C6-4909-A888-3BB26E01D7F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentSenderService", "DocumentSenderService\DocumentSenderService.csproj", "{9A1FD2EA-7558-4A58-A511-8FD5AFB8BD98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{669A12F9-77C6-4909-A888-3BB26E01D7F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{669A12F9-77C6-4909-A888-3BB26E01D7F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{669A12F9-77C6-4909-A888-3BB26E01D7F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A1FD2EA-7558-4A58-A511-8FD5AFB8BD98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A1FD2EA-7558-4A58-A511-8FD5AFB8BD98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A1FD2EA-7558-4A58-A511-8FD5AFB8BD98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A1FD2EA-7558-4A58-A511-8FD5AFB8BD98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
