@@ -61,7 +61,7 @@ namespace DocumentSender
                     return new KeywordModel
                     {
                         KeywordId = 0,
-                        KeywordTypeGroup = "",
+                        KeywordTypeGroup = null,
                         TypeName = x.Value,
                         Value = cValue != null ? cValue.Value : "" 
                     };
