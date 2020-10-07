@@ -10,13 +10,18 @@ using ConfigurationManager = System.Configuration.ConfigurationManager;
 
 namespace DocumentSender
 {
+    /// <summary>
+    /// Use case for from send documents from prodoctivity to OnBase
+    /// </summary>
     public class SendDocumentToOnBase
     {
         private readonly string _documentTypeName;
         private readonly long _documentTypeId;
         private readonly Dictionary<string, string> _keywords;
 
-
+        /// <summary>
+        /// Creates a new instance of  <see cref="SendDocumentToOnBase"/>
+        /// </summary>
         public SendDocumentToOnBase()
         {
             _documentTypeName = ConfigurationManager.AppSettings["documentTypeName"];
@@ -24,6 +29,12 @@ namespace DocumentSender
             _keywords = CastSettingToKeywords();
         }
 
+        /// <summary>
+        /// Save incoming document on OnBase
+        /// </summary>
+        /// <param name="handler"> the document handler to find</param>
+        /// <param name="releaser"></param>
+        /// <returns></returns>
         public Option<long, Exception> SaveDocument(long handler, OnBaseReleaser releaser)
         {
             var prodoctivityDocument = GetDocumentFromProdoctivity(handler);
@@ -39,6 +50,17 @@ namespace DocumentSender
 
             return Option.None<long, Exception>(new ArgumentException(newHandler));
         }
+
+        /// <summary>
+        /// Configuration of document schema for OnBase
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<string, string> CastSettingToKeywords()
+            => ConfigurationManager.AppSettings["keywords"].Split(';').Select(x =>
+            {
+                string[] currentPair = x.Split(',');
+                return new KeyValuePair<string, string>(currentPair[0], currentPair[1]);
+            }).ToDictionary(y => y.Key, z => z.Value);
 
         private ProdoctivityDocument GetDocumentFromProdoctivity(long handler)
         {
@@ -80,11 +102,6 @@ namespace DocumentSender
             return new CaptureFormData(keywords, new List<CaptureGroup>());
         }
 
-        public Dictionary<string, string> CastSettingToKeywords()
-            => ConfigurationManager.AppSettings["keywords"].Split(';').Select(x =>
-                                                                               {
-                                                                                   string[] currentPair = x.Split(',');
-                                                                                   return new KeyValuePair<string, string>(currentPair[0], currentPair[1]);
-                                                                               }).ToDictionary(y => y.Key, z => z.Value);
+        
     }
 }

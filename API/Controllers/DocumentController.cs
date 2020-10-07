@@ -15,15 +15,23 @@ namespace SenderDocumentSync.Controllers
     [System.Web.Http.RoutePrefix("document")]
     public class DocumentController : ApiController
     {
-        readonly SendDocumentToOnBase sender = new SendDocumentToOnBase();
+        readonly SendDocumentToOnBase _sender = new SendDocumentToOnBase();
 
+        /// <summary>
+        /// Send Document from prodoctivity to OnBase
+        /// </summary>
+        /// <param name="handler"></param>
+        /// <returns></returns>
         [System.Web.Http.Route("send-document/{handler}")]
         [System.Web.Http.HttpPost]
         public IHttpActionResult SendDocumentToOnBase(long handler)
         {
-            var newHandler = sender.SaveDocument(handler, new OnBaseReleaser());
+            var newHandler = _sender.SaveDocument(handler, new OnBaseReleaser());
             ValidateResult(newHandler);
-            return Ok(newHandler.ValueOrFailure());
+            return Ok(new
+            {
+                ObStoreId =  newHandler.ValueOrFailure()
+            });
         }
 
         private void ValidateResult(Optional.Option<long, Exception> newHandler)
@@ -34,11 +42,15 @@ namespace SenderDocumentSync.Controllers
             }
         }
 
+        /// <summary>
+        /// Retrieve map configuration
+        /// </summary>
+        /// <returns></returns>
         [System.Web.Http.Route("document-mapping")]
         [System.Web.Http.HttpGet]
         public IHttpActionResult GetDocumentMapping()
         {
-            var keywords = sender.CastSettingToKeywords();
+            var keywords = _sender.CastSettingToKeywords();
             return Ok(keywords);
         }
 

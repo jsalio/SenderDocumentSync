@@ -6,6 +6,9 @@ using UnityApiWrapper.Models.Enums;
 
 namespace DocumentSender
 {
+    /// <summary>
+    /// Manage OnBase Connection
+    /// </summary>
     public class OnBaseReleaser
     {
         private IntegrationManager manager;
@@ -15,10 +18,12 @@ namespace DocumentSender
         private string _password;
         private string _odbc;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="OnBaseReleaser"/>
+        /// </summary>
         public OnBaseReleaser()
         {
             ValidateSettings();
-            ////credentials = new OnBaseCredentials("http://192.168.43.139/appserver/service.asmx", "observer", "manager", "password");
             credentials = new OnBaseCredentials(_url, _odbc, _username, _password);
             manager = new IntegrationManager(credentials, LicenseConnectionType.NamedLicense, true);
         }
@@ -44,9 +49,20 @@ namespace DocumentSender
             }
         }
 
+
+        /// <summary>
+        /// Retrieve instance of <see cref="IntegrationManager"/>
+        /// </summary>
+        /// <returns></returns>
         public IntegrationManager GetInstance()
         {
             return manager;
         }
+
+        /// <summary>
+        /// Destroy connection with OnBase 
+        /// </summary>
+        public void Disconect()
+            => manager.CerrarConexion();
     }
 }
